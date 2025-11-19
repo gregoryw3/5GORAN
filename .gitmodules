@@ -1,9 +1,12 @@
 [submodule "MiniProject/openairinterface5g"]
 	path = MiniProject/openairinterface5g
 	url = https://github.com/gregoryw3/openairinterface5g.git
+	branch = miniproject
 [submodule "MiniProject/swig"]
 	path = MiniProject/swig
 	url = https://github.com/gregoryw3/swig.git
+	branch = miniproject
 [submodule "MiniProject/flexric"]
 	path = MiniProject/flexric
 	url = https://github.com/gregoryw3/flexric.git
+	branch = miniproject
