@@ -72,7 +72,7 @@ This document provides a step-by-step guide to setting up an Open Radio Access N
 sudo apt update
 sudo apt install git net-tools unzip ccache libcap-dev libatlas-base-dev libblas3 liblapack3 gfortran
 cd /workspaces/5GORAN/MiniProject
-git submodule add https://gitlab.eurecom.fr/oai/openairinterface5g.git /openairinterface5g
+git submodule add https://gitlab.eurecom.fr/oai/openairinterface5g.git openairinterface5g
 cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets
 ./build_oai -I
 ```
@@ -121,4 +121,88 @@ docker compose down
 ```bash
 cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets
 ./build_oai -w SIMU --gNB --nrUE --build-e2 --ninja
+```
+
+### Installing Swig for FlexRIC
+
+```bash
+sudo apt install libsctp-dev cmake-curses-gui libpcre2-dev
+cd /workspaces/5GORAN/MiniProject
+git submodule add https://github.com/swig/swig.git
+cd swig
+git checkout release-4.1
+./autogen.sh
+./configure --prefix=/usr/
+make -j`nproc`
+sudo make install
+cd /workspaces/5GORAN/MiniProject
+```
+
+### Installing FlexRIC
+
+```bash
+cd /workspaces/5GORAN/MiniProject
+git submodule add https://gitlab.eurecom.fr/mosaic5g/flexric flexric
+cd flexric
+git checkout df754a85
+```
+
+```bash
+cd flexric
+mkdir build
+cd build
+cmake ../
+make -j`nproc`
+sudo make install
+cd /workspaces/5GORAN/MiniProject
+```
+
+## Running Core Network - Terminal 1
+
+```bash
+cd /workspaces/5GORAN/MiniProject/oai-cn5g
+docker compose up -d
+```
+
+## Running FlexRIC - Terminal 2
+
+```bash
+cd /workspaces/5GORAN/MiniProject
+./flexric/build/examples/ric/nearRT-RIC
+```
+
+## Start the gNB - Terminal 3
+
+First we need to edit the configuration file to point to the FlexRIC instance.
+
+```bash
+cd /workspaces/5GORAN/MiniProject/openairinterface5g/targets/PROJECTS/GENERIC-NR-5GC/CONF/
+nano gnb.sa.band78.fr1.106PRB.usrpb210.conf
+```
+
+Now we can start the gNB:
+
+```bash
+cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets/ran_build/build
+sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 --rfsim
+```
+
+## Start the UE - Terminal 4
+
+```bash
+cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets/ran_build/build
+sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi 001010000000001 --rfsim
+```
+
+## Start Traffic - Terminal 5
+
+```bash
+ping 192.168.70.135 -I oaitun_ue1
+```
+
+## Start the KPM xApp - Terminal 6
+
+```bash
+cd /workspaces/5GORAN/MiniProject/flexric/
+./build/examples/xApp/c/monitor/xapp_kpm_moni
 ```
