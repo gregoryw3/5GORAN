@@ -1,9 +1,9 @@
 [submodule "MiniProject/openairinterface5g"]
 	path = MiniProject/openairinterface5g
-	url = https://gitlab.eurecom.fr/oai/openairinterface5g.git
+	url = https://github.com/gregoryw3/openairinterface5g.git
 [submodule "MiniProject/swig"]
 	path = MiniProject/swig
 	url = https://github.com/gregoryw3/swig.git
 [submodule "MiniProject/flexric"]
 	path = MiniProject/flexric
-	url = https://gitlab.eurecom.fr/mosaic5g/flexric
+	url = https://github.com/gregoryw3/flexric.git

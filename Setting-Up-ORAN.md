@@ -72,7 +72,7 @@ This document provides a step-by-step guide to setting up an Open Radio Access N
 sudo apt update
 sudo apt install git net-tools unzip ccache libcap-dev libatlas-base-dev libblas3 liblapack3 gfortran
 cd /workspaces/5GORAN/MiniProject
-git submodule add https://gitlab.eurecom.fr/oai/openairinterface5g.git openairinterface5g
+git submodule add https://github.com/gregoryw3/openairinterface5g.git openairinterface5g
 cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets
 ./build_oai -I
 ```
@@ -128,7 +128,7 @@ cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets
 ```bash
 sudo apt install libsctp-dev cmake-curses-gui libpcre2-dev
 cd /workspaces/5GORAN/MiniProject
-git submodule add https://github.com/swig/swig.git
+git submodule add https://github.com/gregoryw3/swig.git
 cd swig
 git checkout release-4.1
 ./autogen.sh
@@ -142,7 +142,7 @@ cd /workspaces/5GORAN/MiniProject
 
 ```bash
 cd /workspaces/5GORAN/MiniProject
-git submodule add https://gitlab.eurecom.fr/mosaic5g/flexric flexric
+git submodule add https://github.com/gregoryw3/flexric.git flexric
 cd flexric
 git checkout df754a85
 ```
