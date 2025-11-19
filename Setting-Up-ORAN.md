@@ -69,11 +69,11 @@ This document provides a step-by-step guide to setting up an Open Radio Access N
 #### Dependencies
 
 ```bash
-sudo apt-get update
-sudo apt-get install git net-tools unzip
-cd ~/MiniProject
-git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/MiniProject/openairinterface5g
-cd ~/MiniProject/openairinterface5g/cmake_targets
+sudo apt update
+sudo apt install git net-tools unzip ccache libcap-dev libatlas-base-dev libblas3 liblapack3 gfortran
+cd /workspaces/5GORAN/MiniProject
+git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git /workspaces/5GORAN/MiniProject/openairinterface5g
+cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets
 ./build_oai -I
 ```
 
@@ -90,14 +90,35 @@ gcc --version
 Configuration Files:
 
 ```bash
-wget -O ~/MiniProjet/oai-cn5g.zip https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g
+wget -O /workspaces/5GORAN/MiniProject/oai-cn5g.zip https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g
 
-unzip ~/MiniProject/oai-cn5g.zip
+unzip /workspaces/5GORAN/MiniProject/oai-cn5g.zip
 
-mv ~/MiniProject/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g/doc/tutorial_resources/oai-cn5g ~/MiniProject/oai-cn5g
+mv /workspaces/5GORAN/MiniProject/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g/doc/tutorial_resources/oai-cn5g ~/MiniProject/oai-cn5g
 
-rm -r ~/MiniProject/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/MiniProject/oai-cn5g.zip
+rm -r /workspaces/5GORAN/MiniProject/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/MiniProject/oai-cn5g.zip
 
-cd ~/MiniProject/oai-cn5g
+cd /workspaces/5GORAN/MiniProject/oai-cn5g
 sudo docker compose pull
+```
+
+#### Starting OAI CN 5G
+
+```bash
+cd /workspaces/5GORAN/MiniProject/oai-cn5g
+docker compose up -d
+```
+
+#### Stopping OAI CN 5G
+
+```bash
+cd /workspaces/5GORAN/MiniProject/oai-cn5g
+docker compose down
+```
+
+### Installing OAI RAN
+
+```bash
+cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets
+./build_oai -w SIMU --gNB --nrUE --build-e2 --ninja
 ```
