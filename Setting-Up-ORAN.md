@@ -7,10 +7,10 @@ This document provides a step-by-step guide to setting up an Open Radio Access N
 ### E2AP Terminology
 
 - **RAN Function**: A function in an E2 Node (UE context handling, paging, Handover, cell configuration)
-    - **RAN Function ID**: Identifier of the RAN Function
+  - **RAN Function ID**: Identifier of the RAN Function
 - **RIC Service**: A service provided by an E2 Node
-    - E2 Node provides access to messages, measurements, and/or enables control from the near-RT RIC
-    - **RIC Action ID**: Identifier of the RIC Action
+  - E2 Node provides access to messages, measurements, and/or enables control from the near-RT RIC
+  - **RIC Action ID**: Identifier of the RIC Action
 - **Information Elements (IEs)**: Data item containing a label field, length, and value
 - **Message**: Group of ordered and nested IEs (E2 Setup request, setup response, subscription request)
 - **Procedure**: Sequential exchange of a set of messages (Setup procedure, subscription procedure)
@@ -26,29 +26,29 @@ This document provides a step-by-step guide to setting up an Open Radio Access N
 
 ### RIC Services - Types
 
-- **Report Service**: 
-    - The Report Service is triggered to send RIC Indication messages (of  type report) that can contain data and telemetry from an E2 Node, upon subscription from an xApp.
-    - The report messages can be configured to be sent periodically during subscription
+- **Report Service**:
+  - The Report Service is triggered to send RIC Indication messages (of  type report) that can contain data and telemetry from an E2 Node, upon subscription from an xApp.
+  - The report messages can be configured to be sent periodically during subscription
 
-- **Insert Service**: 
-    - Through the Insert service an xApp can suspend a specific procedure upon event trigger (through  subscription) and get details about suspended procedures through RIC Indication messages (of  type insert). 
-    - The procedure can be halted till a timer expires/till a RIC control message is received.
+- **Insert Service**:
+  - Through the Insert service an xApp can suspend a specific procedure upon event trigger (through  subscription) and get details about suspended procedures through RIC Indication messages (of  type insert).
+  - The procedure can be halted till a timer expires/till a RIC control message is received.
 
 - **Control Service**:
-    - The E2 node can receive RIC Control messages triggered autonomously by the RIC (xApp) or due  to the consequence of  reception of  an Insert message.
+  - The E2 node can receive RIC Control messages triggered autonomously by the RIC (xApp) or due  to the consequence of  reception of  an Insert message.
 
 - **Policy Service**:
-    - The policy service allows an xApp to request the E2 node to execute a specific policy (through a Subscription Message) after the occurrence of  a specific event.
-    - No halting of  any procedure. The E2 node adopts the policy specified.
+  - The policy service allows an xApp to request the E2 node to execute a specific policy (through a Subscription Message) after the occurrence of  a specific event.
+  - No halting of  any procedure. The E2 node adopts the policy specified.
 
 - **Query Service**:
-    -  The E2 Node allows the RIC (xApp) to query RAN/UE-specific information.
+  - The E2 Node allows the RIC (xApp) to query RAN/UE-specific information.
 
 ### E2 Service Models (E2SM)
 
 - Each RAN Function is associated with one or more E2 Service Models.
 - The RIC services provided by the RAN function, the message types used, and their styles are specified in the E2 Service Model.
-- The Service Model also contains description of  RAN function dependent 
+- The Service Model also contains description of  RAN function dependent
 - Information Elements used in the E2 messages.
 - xApps need to have the same service Model definitions to effectively communicate with the RAN functions.
 
@@ -56,11 +56,11 @@ This document provides a step-by-step guide to setting up an Open Radio Access N
 
 - The Key Performance Metrics (KPM) Monitor RAN function exposes available measurements from O-DU, O-CU-CP, O-CU-UP and periodically reports measurements subscribed from near-RT RIC (xApp).
 - The KPM Monitor RAN function provides the Report service in the following styles
-    - E2 Node Measurement.
-    - E2 Node Measurement for a single UE.
-    - Condition-based, UE-level E2 Node Measurement.
-    - Common Condition-based, UE-level E2 Node Measurement.
-    - E2 Node Measurements for multiple UEs.
+  - E2 Node Measurement.
+  - E2 Node Measurement for a single UE.
+  - Condition-based, UE-level E2 Node Measurement.
+  - Common Condition-based, UE-level E2 Node Measurement.
+  - E2 Node Measurements for multiple UEs.
 
 ## Installation
 
@@ -72,7 +72,7 @@ This document provides a step-by-step guide to setting up an Open Radio Access N
 sudo apt update
 sudo apt install git net-tools unzip ccache libcap-dev libatlas-base-dev libblas3 liblapack3 gfortran
 cd /workspaces/5GORAN/MiniProject
-git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git /workspaces/5GORAN/MiniProject/openairinterface5g
+git submodule add https://gitlab.eurecom.fr/oai/openairinterface5g.git /openairinterface5g
 cd /workspaces/5GORAN/MiniProject/openairinterface5g/cmake_targets
 ./build_oai -I
 ```
